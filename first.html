@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Background Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #fileInput {
+            display: none;
+        }
+        #uploadLabel {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+        }
+        #uploadLabel.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body id="body">
+    <label for="fileInput" id="uploadLabel">Upload Image</label>
+    <input type="file" id="fileInput" accept="image/*" onchange="setBackgroundImage(event)">
+
+    <script>
+        function setBackgroundImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById('body').style.backgroundImage = `url(${e.target.result})`;
+                document.getElementById('uploadLabel').classList.add('hidden');
+            }
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
